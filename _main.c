@@ -2,7 +2,7 @@
 
 /**
  * exec - execute command.
- * @agv: Argument vector.
+ * @argv: Argument vector.
  * @argument: Argument count.
  */
 
