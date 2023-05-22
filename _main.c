@@ -2,31 +2,31 @@
 
 /**
  * exec - execute command.
- * @argv: Argument vector.
- * @arg: Argument count.
+ * @agv: Argument vector.
+ * @argument: Argument count.
  */
 
-void exec(char *argv[], char *arg[])
+void exec(char *argv[], char **argument)
 {
-	int status;
-	pid_t pid;
+        int status;
+        pid_t pid;
 
-	pid = fork();
-	if (pid == -1)
-	{
-		exit(EXIT_FAILURE);
-	}
-	if (pid == 0)
-	{
-		if (execve(arg[0], arg, NULL) == -1)
-		{
-			perror(argv[0]);
-		}
-	}
-	else
-	{
-		wait(&status);
-	}
+        pid = fork();
+        if (pid == -1)
+        {
+                exit(EXIT_FAILURE);
+        }
+        if (pid == 0)
+        {
+                if (execve(argument[0], argument, NULL) == -1)
+                {
+                        perror(argv[0]);
+                }
+        }
+        else
+        {
+                wait(&status);
+        }
 }
 
 /**
@@ -36,44 +36,45 @@ void exec(char *argv[], char *arg[])
  * Return: returns 0.
  */
 
-int main(int agc, char *argv[])
+int main(int agc, char *agv[])
 {
-	ssize_t value;
-	char *s = NULL;
-	size_t n = 0;
-	char *arg[] = {NULL, NULL};
-	int f;
+        ssize_t value;
+        char *s = NULL;
+        size_t n = 0;
+        char **argument = NULL;
+        int f;
 
-	(void)agc;
-	while (1)
-	{
-		if (isatty(STDIN_FILENO))
-			write(STDOUT_FILENO, "My_shell# ", 10);
+        (void)agc;
+        while (1)
+        {
+                if (isatty(STDIN_FILENO))
+                        write(STDOUT_FILENO, "My_shell# ", 10);
 
-		s = malloc(sizeof(char) * n);
-		if (s == NULL)
-		{
-			exit(EXIT_FAILURE);
-		}
-		value = getline(&s, &n, stdin);
-		if (value == -1)
-		{
-			free(s);
-			exit(EXIT_SUCCESS);
-		}
-		f = 0;
-		while (s[f])
-		{
-			if (s[f] == '\n')
-			{
-				s[f] = 0;
-			}
-			f++;
-		}
-		arg[0] = s;
-		exec(argv, arg);
+                s = malloc(sizeof(char) * n);
+                if (s == NULL)
+                {
+                        exit(EXIT_FAILURE);
+                }
+                value = getline(&s, &n, stdin);
+                if (value == -1)
+                {
+                        free(s);
+                        exit(EXIT_SUCCESS);
+                }
+                f = 0;
+                while (s[f])
+                {
+                        if (s[f] == '\n')
+                        {
+                                s[f] = 0;
+                        }
+                        f++;
+                }
+                argument = parse_arguments(s);
+                exec(agv, argument);
 
-		free(s);
-	}
-	return (0);
+                free(s);
+                free(argument);
+        }
+        return (0);
 }

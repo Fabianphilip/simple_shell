@@ -7,6 +7,9 @@
 #include <unistd.h>
 #include <stdio.h>
 
-void exec(char *argv[], char *arg[]);
+#define MAX_ARGUMENTS 10
+
+void exec(char *argv[], char **argument);
+char **parse_arguments(char *input);
 
 #endif
