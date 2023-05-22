@@ -2,11 +2,11 @@
 
 /**
  * exec - execute command.
- * @agv: Argument vector.
- * @argument: Argument count.
+ * @argv: Argument vector.
+ * @arg: Argument count.
  */
 
-void exec(char *agv[], char *argument[])
+void exec(char *argv[], char *arg[])
 {
 	int status;
 	pid_t pid;
@@ -18,9 +18,9 @@ void exec(char *agv[], char *argument[])
 	}
 	if (pid == 0)
 	{
-		if (execve(argument[0], argument, NULL) == -1)
+		if (execve(arg[0], arg, NULL) == -1)
 		{
-			perror(agv[0]);
+			perror(argv[0]);
 		}
 	}
 	else
@@ -36,12 +36,12 @@ void exec(char *agv[], char *argument[])
  * Return: returns 0.
  */
 
-int main(int agc, char *agv[])
+int main(int agc, char *argv[])
 {
 	ssize_t value;
 	char *s = NULL;
 	size_t n = 0;
-	char *argument[] = {NULL, NULL};
+	char *arg[] = {NULL, NULL};
 	int f;
 
 	(void)agc;
@@ -70,8 +70,8 @@ int main(int agc, char *agv[])
 			}
 			f++;
 		}
-		argument[0] = s;
-		exec(agv, argument);
+		arg[0] = s;
+		exec(argv, arg);
 
 		free(s);
 	}
