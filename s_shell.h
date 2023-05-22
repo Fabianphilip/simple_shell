@@ -7,6 +7,6 @@
 #include <unistd.h>
 #include <stdio.h>
 
-void exec(char *agv[], char *argument[]);
+void exec(char *argv[], char *arg[]);
 
 #endif
