@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
 		if (line == -1)
 		{
 			free(buffer);
-			exit(EXIT_SUCCESS);
+			exit(EXIT_FAILURE);
 		}
 
 		f = 0;
