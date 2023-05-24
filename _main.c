@@ -38,17 +38,14 @@ void run(char **ac, char **av, char *buffer)
  * @argv: argument vector
  * Return: always 0(success)
  */
-
 int main(int argc, char *argv[])
 {
-	char *buffer = NULL;
-	char *ac[] = {NULL, NULL};
+	char *ac[] = {NULL, NULL}, *buffer = NULL;
 	int f;
 	size_t n = 0;
 	ssize_t line;
 
 	(void)argc;
-
 	while (1)
 	{
 		if (isatty(STDIN_FILENO))
@@ -66,17 +63,17 @@ int main(int argc, char *argv[])
 			free(buffer);
 			exit(EXIT_FAILURE);
 		}
-
-		f = 0;
-		while (buffer[f])
+		if (line == 0)
+		{
+			free(buffer);
+			exit(EXIT_SUCCESS);
+		}
+		for (f = 0; buffer[f]; f++)
 		{
 			if (buffer[f] == '\n')
 				buffer[f] = 0;
-
-			f++;
 		}
 		ac[0] = buffer;
-
 		run(ac, argv, buffer);
 	}
 	free(buffer);
