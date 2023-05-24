@@ -9,6 +9,7 @@
 
 void run(char **ac, char **av, char *buffer)
 {
+	char **env_v = environ;
 	int wstatus;
 	pid_t pid;
 
@@ -20,7 +21,7 @@ void run(char **ac, char **av, char *buffer)
 	}
 	if (pid == 0)
 	{
-		if (execve(ac[0], ac, NULL) == -1)
+		if (execve(ac[0], ac, env_v) == -1)
 		{
 			perror(av[0]);
 			exit(EXIT_FAILURE);

@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <sys/wait.h>
 
+extern char **environ;
 void run(char **ac, char **av, char *buffer);
 
 #endif
