@@ -151,7 +151,7 @@ int check_vars(r_var **h, char *in, char *st, data_shell *data);
 char *replaced_input(r_var **head, char *input, char *new_input, int nlen);
 char *rep_var(char *input, data_shell *datash);
 
-/* _getline.c */
+/* get_line.c */
 void bring_line(char **lineptr, size_t *n, char *buffer, size_t t);
 ssize_t get_line(char **lineptr, size_t *n, FILE *stream);
 

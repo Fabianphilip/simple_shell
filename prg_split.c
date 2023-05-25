@@ -1,4 +1,4 @@
-#include "S_shell.h"
+#include "s_shell.h"
 
 /**
  * swap_char - swaps | and & for non-printed chars
@@ -89,31 +89,31 @@ void add_nodes(sep_list **head_s, line_list **head_l, char *input)
  */
 void go_next(sep_list **list_s, line_list **list_l, data_shell *datash)
 {
-	int loop;
+	int lop;
 	sep_list *ls_s;
 	line_list *ls_l;
 
-	loop = 1;
+	lop = 1;
 	ls_s = *list_s;
 	ls_l = *list_l;
 
-	while (ls_s != NULL && loop)
+	while (ls_s != NULL && lop)
 	{
 		if (datash->status == 0)
 		{
 			if (ls_s->separator == '&' || ls_s->separator == ';')
-				loop = 0;
+				lop = 0;
 			if (ls_s->separator == '|')
 				ls_l = ls_l->next, ls_s = ls_s->next;
 		}
 		else
 		{
 			if (ls_s->separator == '|' || ls_s->separator == ';')
-				loop = 0;
+				lop = 0;
 			if (ls_s->separator == '&')
 				ls_l = ls_l->next, ls_s = ls_s->next;
 		}
-		if (ls_s != NULL && !loop)
+		if (ls_s != NULL && !lop)
 			ls_s = ls_s->next;
 	}
 
@@ -134,7 +134,7 @@ int split_commands(data_shell *datash, char *input)
 
 	sep_list *head_s, *list_s;
 	line_list *head_l, *list_l;
-	int loop;
+	int lop;
 
 	head_s = NULL;
 	head_l = NULL;
@@ -148,10 +148,10 @@ int split_commands(data_shell *datash, char *input)
 	{
 		datash->input = list_l->line;
 		datash->args = split_line(datash->input);
-		lp = exec_line(datash);
+		lop = get_line(datash);
 		free(datash->args);
 
-		if (loop == 0)
+		if (lop == 0)
 			break;
 
 		go_next(&list_s, &list_l, datash);
@@ -163,7 +163,7 @@ int split_commands(data_shell *datash, char *input)
 	free_sep_list(&head_s);
 	free_line_list(&head_l);
 
-	if (loop == 0)
+	if (lop == 0)
 		return (0);
 	return (1);
 }
