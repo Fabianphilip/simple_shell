@@ -1,4 +1,4 @@
-#include "s_Shell.h"
+#include "s_shell.h"
 
 /**
  * swap_char - swaps | and & for non-printed chars
