@@ -14,7 +14,7 @@
 
 #define BUFSIZE 1024
 #define TOK_BUFSIZE 128
-#define TOK_DELIM " \t\r\n\a"
+#define TOK_DELIM "\t\r\n\a"
 
 /* Points to an array of pointers to strings called the "environment" */
 extern char **environ;
