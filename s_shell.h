@@ -151,15 +151,15 @@ int check_vars(r_var **h, char *in, char *st, data_shell *data);
 char *replaced_input(r_var **head, char *input, char *new_input, int nlen);
 char *rep_var(char *input, data_shell *datash);
 
-/* gtline.c */
-void bring_line(char **lineptr, size_t *n, char *buffer, size_t j);
+/* _getline.c */
+void bring_line(char **lineptr, size_t *n, char *buffer, size_t t);
 ssize_t get_line(char **lineptr, size_t *n, FILE *stream);
 
 /* line_exec.c */
 int exec_line(data_shell *datash);
 
 /* exec_cmd.c */
-int is_cdir(char *path, int *i);
+int is_cdir(char *path, int *f);
 char *_which(char *cmd, char **_environ);
 int is_executable(data_shell *datash);
 int check_error_cmd(char *dir, data_shell *datash);
@@ -175,19 +175,19 @@ void set_env(char *name, char *value, data_shell *datash);
 int _setenv(data_shell *datash);
 int _unsetenv(data_shell *datash);
 
-/* chdir.c */
+/* chng_dir.c */
 void cd_dot(data_shell *datash);
 void cd_to(data_shell *datash);
 void cd_previous(data_shell *datash);
 void cd_to_home(data_shell *datash);
 
-/* chdir_shell.c */
+/* chngdir.c */
 int cd_shell(data_shell *datash);
 
-/* builtin */
+/* b_func.c */
 int (*get_builtin(char *cmd))(data_shell *datash);
 
-/* exit.c */
+/* _escape.c */
 int exit_shell(data_shell *datash);
 
 /* stdlib.c */
@@ -195,13 +195,13 @@ int get_len(int n);
 char *aux_itoa(int n);
 int _atoi(char *s);
 
-/* error1.c */
+/* _err1.c */
 char *strcat_cd(data_shell *, char *, char *, char *);
 char *error_get_cd(data_shell *datash);
 char *error_not_found(data_shell *datash);
 char *error_exit_shell(data_shell *datash);
 
-/* error2.c */
+/* _err2.c */
 char *error_get_alias(char **args);
 char *error_env(data_shell *datash);
 char *error_syntax(char **args);
@@ -209,25 +209,25 @@ char *error_permission(char **args);
 char *error_path_126(data_shell *datash);
 
 
-/* error.c */
+/* _err.c */
 int get_error(data_shell *datash, int eval);
 
 /* sgint.c */
 void get_sigint(int sig);
 
-/* help.c */
+/* _help.c */
 void aux_help_env(void);
 void aux_help_setenv(void);
 void aux_help_unsetenv(void);
 void aux_help_general(void);
 void aux_help_exit(void);
 
-/* help2.c */
+/* _help2.c */
 void aux_help(void);
 void aux_help_alias(void);
 void aux_help_cd(void);
 
-/* help2.c */
+/* _help2.c */
 int get_help(data_shell *datash);
 
 #endif
