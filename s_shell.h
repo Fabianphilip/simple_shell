@@ -1,16 +1,16 @@
 #ifndef S_SHELL_H
 #define S_SHELL_H
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <sys/wait.h>
 #include <sys/stat.h>
 #include <errno.h>
 #include <fcntl.h>
 #include <signal.h>
 #include <limits.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 #define BUFSIZE 1024
 #define TOK_BUFSIZE 128
@@ -40,6 +40,17 @@ typedef struct data
 	char **_environ;
 	char *pid;
 } data_shell;
+
+/**
+ * struct builtin_s - Builtin struct for command args.
+ * @name: The name of the command builtin i.e cd, exit, env
+ * @f: data type pointer function.
+ */
+typedef struct builtin_s
+{
+	char *name;
+	int (*f)(data_shell *datash);
+} builtin_t;
 
 /**
  * struct sep_list_s - single linked list
@@ -80,17 +91,6 @@ typedef struct r_var_list
 	int len_val;
 	struct r_var_list *next;
 } r_var;
-
-/**
- * struct builtin_s - Builtin struct for command args.
- * @name: The name of the command builtin i.e cd, exit, env
- * @f: data type pointer function.
- */
-typedef struct builtin_s
-{
-	char *name;
-	int (*f)(data_shell *datash);
-} builtin_t;
 
 /* lists1.c */
 sep_list *add_sep_node_end(sep_list **head, char sep);
